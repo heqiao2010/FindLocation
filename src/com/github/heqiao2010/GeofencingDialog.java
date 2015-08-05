@@ -228,7 +228,7 @@ KeyListener, ItemListener, FocusListener, MouseListener{
 			imagePanel = new PicturePanel(this);
 			imagePanel.setBorder(BorderFactory.createLineBorder(UIManager
 					.getColor("MessageDialog.linecolor")));
-			imagePanel.setBounds(10, 8, 400, 300);
+			imagePanel.setBounds(10, 4, 400, 300);
 		}
 		return imagePanel;
 	}
@@ -272,7 +272,7 @@ KeyListener, ItemListener, FocusListener, MouseListener{
 	        }
 	        if (getCenterPanel() != null)
 	        {
-	            getCenterPanel().setBorder(BorderFactory.createLineBorder(Color.BLACK, 8));
+	            getCenterPanel().setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 8));
 	            getContentPane().add(getCenterPanel(), BorderLayout.CENTER);
 	            getCenterPanel().setBackground(Color.LIGHT_GRAY);
 	        }
