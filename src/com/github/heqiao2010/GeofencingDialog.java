@@ -584,4 +584,18 @@ KeyListener, ItemListener, FocusListener, MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public String getLocationStr(){
+		return null==this.getLocationTextFiled() ? "" : 
+			this.getLocationTextFiled().getText();
+	}
+	
+	/**
+	 * 获取半径
+	 * @return
+	 */
+	public String getRadiusStr(){
+		return null == this.getRadTextFiled() ? "" 
+				: this.getRadTextFiled().getText();
+	}
 }
