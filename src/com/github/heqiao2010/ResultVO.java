@@ -1,5 +1,10 @@
 package com.github.heqiao2010;
 
+/**
+ * 返回的地点信息封装
+ * @author heqiaoa
+ *
+ */
 public class ResultVO {
 	private String name;
 	private Point location;
@@ -84,6 +89,10 @@ public class ResultVO {
 		}
 		public void setLng(String lng) {
 			this.lng = lng;
+		}
+		@Override
+		public String toString() {
+			return lng + "," + lat;
 		}
 	};
 }

@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 /**
@@ -21,7 +18,7 @@ import com.google.gson.JsonParser;
  * @author joel
  */
 public class PlaceSuggession {
-	// 申请的密钥
+	// 申请的密钥，注：这个密钥一天只能访问50万次，而且需要申请
 	public static final String AK = "3OwsREAN0XK5707kEbbniePY";
 	// 服务地址
 	public static final String SUGGESTION_URL = "http://api.map.baidu.com/place/v2/suggestion";
@@ -43,7 +40,7 @@ public class PlaceSuggession {
 	 * @throws ParameterException
 	 */
 	private static void checkParameter(HashMap<String, String> aparameters)
-			throws ParameterException {
+			throws BusinessException {
 		String errorMsg = "";
 		if (null == aparameters) {
 			errorMsg = "Parameter is empty!";
@@ -55,7 +52,7 @@ public class PlaceSuggession {
 			errorMsg = "Parameter: ak is blank!";
 		}
 		if (StringUtils.isNotEmpty(errorMsg)) {
-			throw new ParameterException(errorMsg);
+			throw new BusinessException(errorMsg);
 		}
 	}
 	
@@ -63,13 +60,11 @@ public class PlaceSuggession {
 	 * 获取字符串形式的参数列表，例如a=1&b=2
 	 * @param aparameters
 	 * @return
+	 * @throws BusinessException 
 	 */
-	public static String getParameterStr(HashMap<String, String> aparameters){
-		try {
-			checkParameter(aparameters);
-		} catch (ParameterException e) {
-			e.printStackTrace();
-		}
+	public static String getParameterStr(HashMap<String, String> aparameters) 
+			throws BusinessException{
+		checkParameter(aparameters);
 		StringBuilder retStr = new StringBuilder();
 		Iterator<String> it = aparameters.keySet().iterator();
 		while(it.hasNext()){
@@ -86,13 +81,10 @@ public class PlaceSuggession {
 	}
 	
 	/**
-	 * 日志暂时输出到终端
-	 * @param str
+	 * 用Gson解析
+	 * @param retStr
+	 * @return
 	 */
-	public static void logger(final Object o){
-		System.out.println(o.toString());
-	}
-	
 	public static JsonElement[] parseJsonStr(final String retStr){
 		List<JsonElement> retList = new ArrayList<JsonElement>();
 		JsonParser parser = new JsonParser();
@@ -104,6 +96,11 @@ public class PlaceSuggession {
 		return retList.toArray( new JsonElement[0]);
 	}
 	
+	/**
+	 * 将json对象封装为ResultVO
+	 * @param jsonObjects
+	 * @return
+	 */
 	public static ResultVO[] parse2ResultVOs(JsonElement[] jsonObjects) {
 		if (null == jsonObjects || jsonObjects.length == 0) {
 			return null;
@@ -116,32 +113,41 @@ public class PlaceSuggession {
 		return retList.toArray(new ResultVO[0]);
 	}
 	
+	/**
+	 * 看看值
+	 * @param locations
+	 */
 	public static void printLocations(JsonElement[]  locations){
 		for( int i=0; null!=locations && locations.length > i; i++){
-			logger(locations[i].toString());
+			Logger.info(locations[i].toString());
 		}
 	}
 	
-	public static void main(String[] args){
-		Scanner in = new Scanner(System.in);
-		PlaceSuggession.parameters.put("region", "全国");
-		String queryCode = "beijing";
-		while (!"-1".equals(queryCode)) {
-			logger("Please Input Query Code(-1 will End this Program): ");
-			queryCode = in.nextLine();
-			if("-1".equals(queryCode)){
-				return; 
-			}
-			PlaceSuggession.parameters.put("query", queryCode);
-			String param = PlaceSuggession.getParameterStr(parameters);
-			String returnStr = HttpHelper.sendGet(SUGGESTION_URL, param);
-
-			logger("GET: " + SUGGESTION_URL + param);
-			logger("RETURN: " + returnStr);
-			JsonElement[] locations = parseJsonStr(returnStr);
-			logger(locations.length);
-			printLocations(locations);
-		}
-		in.close();
-	}
+//	public static void main(String[] args){
+//		Scanner in = new Scanner(System.in);
+//		PlaceSuggession.parameters.put("region", "全国");
+//		String queryCode = "beijing";
+//		while (!"-1".equals(queryCode)) {
+//			logger("Please Input Query Code(-1 will End this Program): ");
+//			queryCode = in.nextLine();
+//			if("-1".equals(queryCode)){
+//				return; 
+//			}
+//			PlaceSuggession.parameters.put("query", queryCode);
+//			String param = PlaceSuggession.getParameterStr(parameters);
+//			String returnStr = "";
+//			try {
+//				returnStr = HttpHelper.sendGet(SUGGESTION_URL, param);
+//			} catch (BusinessException e) {
+//				e.printStackTrace();
+//			}
+//
+//			logger("GET: " + SUGGESTION_URL + param);
+//			logger("RETURN: " + returnStr);
+//			JsonElement[] locations = parseJsonStr(returnStr);
+//			logger(locations.length);
+//			printLocations(locations);
+//		}
+//		in.close();
+//	}
 }
