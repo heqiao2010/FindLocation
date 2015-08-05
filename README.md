@@ -2,7 +2,7 @@
 用Java实现通过调用百度地图API，实现查找地点经纬度和范围的功能。
 
 # 注意
-百度地图[地点搜索](http://api.map.baidu.com/place/v2/suggestion)接口需要认证，且有访问限制：每天只能访问50万次。
+百度地图[地点搜索](http://api.map.baidu.com/place/v2/suggestion?ak=3OwsREAN0XK5707kEbbniePY&region=%E5%85%A8%E5%9B%BD&query=beihai&output=json)接口需要认证，且有访问限制：每天只能访问50万次。
 
 # 用法
 ```
