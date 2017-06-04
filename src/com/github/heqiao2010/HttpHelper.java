@@ -68,9 +68,9 @@ public class HttpHelper {
 			// 获取所有响应头字段
 			Map<String, List<String>> map = connection.getHeaderFields();
 			// 遍历所有的响应头字段
-			Logger.error("Http info:");
+			Logger.info("Http info:");
 			for (String key : map.keySet()) {
-				Logger.error(key + "--->" + map.get(key));
+				Logger.info(key + "--->" + map.get(key));
 			}
 			in = connection.getInputStream();// 通过输入流获取图片数据
 			data = readInputStream(in);
@@ -122,9 +122,9 @@ public class HttpHelper {
 			// 获取所有响应头字段
 			Map<String, List<String>> map = connection.getHeaderFields();
 			// 遍历所有的响应头字段
-			Logger.error("Http info:" + url);
+			Logger.info("Http info:" + url);
 			for (String key : map.keySet()) {
-				Logger.error(key + "--->" + map.get(key));
+				Logger.info(key + "--->" + map.get(key));
 			}
 			// 定义 BufferedReader输入流来读取URL的响应，注意返回的是UTF-8的格式
 			in = new BufferedReader(new InputStreamReader(

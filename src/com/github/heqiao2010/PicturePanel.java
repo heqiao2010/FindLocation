@@ -39,7 +39,7 @@ class PicturePanel extends ImagePanel {
 	 */
 	public void setPath(String picurl) throws BusinessException {
 		byte[] ret = HttpHelper.sendGetRetByte(picurl);
-		Logger.error("image:" + picurl);
+		Logger.info("image:" + picurl);
 		ImageIcon icon = new ImageIcon(ret);
 		setImg(icon.getImage());
 		//重绘

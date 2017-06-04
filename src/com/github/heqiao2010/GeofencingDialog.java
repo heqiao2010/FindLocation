@@ -538,14 +538,14 @@ KeyListener, ItemListener, FocusListener, MouseListener{
 		if (null == d || d.length == 0) {
 			return;
 		}
-		Logger.error("原经纬度坐标：" + d[0] + "，" + d[1]);
+		Logger.info("原经纬度坐标：" + d[0] + "，" + d[1]);
 		//计算鼠标点击位置到图片中心位置距离
 		int imageWidth = getImagePanel().getWidth();
 		int imageHeight = getImagePanel().getHeight();
 		int x = e.getX() - imageWidth /2;
 		int y = imageHeight/2 - e.getY();
-		Logger.error("点击位置：" + x + "," + y);
-		Logger.error("纬度变化像素：" + y + "经度变化像素：" + x);
+		Logger.info("点击位置：" + x + "," + y);
+		Logger.info("纬度变化像素：" + y + "经度变化像素：" + x);
 		//根据鼠标点击位置计算新的经纬度坐标
 		int scale = GeofencingUtils
 				.getScaleByindex(getScaleComboBox().getSelectedIndex());
@@ -553,12 +553,12 @@ KeyListener, ItemListener, FocusListener, MouseListener{
 		d[0] += xlong;
 		double xlati = GeofencingUtils.getTudeX(y, scale);
 		d[1] += xlati;
-		Logger.error("经度差：" + xlong + "，纬度差：" + xlati);
+		Logger.info("经度差：" + xlong + "，纬度差：" + xlati);
 		//刷新图片
 		restPicByNewCenter(d[0], d[1]);
 		//更新坐标值
 		getLocationTextFiled().setText(GeofencingUtils.df.format(d[0]) + "," + GeofencingUtils.df.format(d[1]));
-		Logger.error("新经纬度坐标：" + GeofencingUtils.df.format(d[0]) + "," + GeofencingUtils.df.format(d[1]));
+		Logger.info("新经纬度坐标：" + GeofencingUtils.df.format(d[0]) + "," + GeofencingUtils.df.format(d[1]));
 	}
 	
 	@Override
